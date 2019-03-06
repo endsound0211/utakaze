@@ -1,0 +1,82 @@
+import org.jooq.codegen.GenerationTool
+import org.jooq.meta.jaxb.Configuration
+import org.jooq.meta.jaxb.Database
+import org.jooq.meta.jaxb.Generate
+import org.jooq.meta.jaxb.Generator
+import org.jooq.meta.jaxb.Jdbc
+import org.jooq.meta.jaxb.Target
+
+buildscript {
+    ext {
+        springBootVersion = '2.1.2.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("mysql:mysql-connector-java:+")
+        classpath('org.jooq:jooq-codegen:3.11.9')
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group 'com.endsound.trpg'
+version '0.0.1-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
+    compileOnly 'org.springframework.boot:spring-boot-starter-tomcat'
+    implementation 'org.springframework.boot:spring-boot-starter-json'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+
+    // https://mvnrepository.com/artifact/com.google.guava/guava
+    implementation group: 'com.google.guava', name: 'guava', version: '27.0.1-jre'
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
+    // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
+    implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+    //https://mvnrepository.com/artifact/org.jooq/jooq-codegen
+    implementation group: 'org.jooq', name: 'jooq-codegen', version: '3.11.9'
+    // https://mvnrepository.com/artifact/org.webjars.npm/jsonwebtoken
+    implementation group: 'org.webjars.npm', name: 'jsonwebtoken', version: '8.2.1'
+
+}
+
+
+task jooqGen{
+    doLast{
+        println("$project.name:: Jooq Code Generate Start::")
+        def jdbc = new Jdbc(
+                driver: db_driver,
+                url: db_url,
+                user: db_username,
+                password: db_password
+        )
+
+        def database = new Database(inputSchema: db_inputSchema, includes: 'user|group|role|map_user_group|map_group_role')
+
+        def generate = new Generate(pojos: true, daos: true, deprecated: true, fluentSetters: true)
+
+        def target = new Target(packageName: 'com.endsound.trpg.security.jooq', directory: "$projectDir/src/main/java")
+
+        def generator = new Generator(database: database, generate: generate, target: target)
+        def configuration = new Configuration(jdbc: jdbc, generator: generator)
+        GenerationTool.generate(configuration)
+
+        println("$project.name:: Jooq Code Generate Start::")
+    }
+}
+jooqGen.group = 'gen tool'

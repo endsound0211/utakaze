@@ -1,0 +1,13 @@
+<form role="form" [formGroup]="formGroup">
+  <div>
+    <label>帳號:</label>
+    <input type="text" formControlName="username">
+  </div>
+  <div>
+    <label>密碼:</label>
+    <input type="password" formControlName="password">
+  </div>
+  <div>
+    <button type="button" (click)="submit()" [disabled]="formGroup.invalid">Submit</button>
+  </div>
+</form>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="MariaDb" id="Project_42ffbe9" template="Default" database="MariaDb" >
+	<schema name="utakaze" catalogname="utakaze" >
+		<table name="character" >
+			<comment><![CDATA[角色]]></comment>
+			<column name="id" type="int" jt="4" mandatory="y" autoincrement="y" >
+				<comment><![CDATA[識別碼]]></comment>
+			</column>
+			<column name="data" type="json" length="0" decimal="0" jt="1111" mandatory="y" />
+			<index name="pk_character_id" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<storage><![CDATA[engine=InnoDB]]></storage>
+		</table>
+		<table name="group" >
+			<comment><![CDATA[群組]]></comment>
+			<column name="id" type="int" jt="4" mandatory="y" autoincrement="y" >
+				<comment><![CDATA[識別碼]]></comment>
+			</column>
+			<column name="name" type="varchar" length="100" jt="12" mandatory="y" >
+				<comment><![CDATA[名稱]]></comment>
+			</column>
+			<index name="pk_group" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<storage><![CDATA[engine=InnoDB]]></storage>
+		</table>
+		<table name="map_group_role" >
+			<column name="group_id" type="int" jt="4" mandatory="y" />
+			<column name="role_id" type="int" jt="4" mandatory="y" />
+			<index name="uni_map_group_role" unique="PRIMARY_KEY" >
+				<column name="group_id" />
+				<column name="role_id" />
+			</index>
+			<index name="idx_map_group_role" unique="NORMAL" >
+				<column name="group_id" />
+			</index>
+			<index name="idx_map_group_role_0" unique="NORMAL" >
+				<column name="role_id" />
+			</index>
+			<fk name="fk_map_group_role_group" to_schema="utakaze" to_table="group" delete_action="cascade" update_action="cascade" >
+				<fk_column name="group_id" pk="id" />
+			</fk>
+			<fk name="fk_map_group_role_role" to_schema="utakaze" to_table="role" delete_action="cascade" update_action="cascade" >
+				<fk_column name="role_id" pk="id" />
+			</fk>
+		</table>
+		<table name="map_user_character" >
+			<comment><![CDATA[使用者角色]]></comment>
+			<column name="user_id" type="int" jt="4" mandatory="y" >
+				<comment><![CDATA[使用者識別碼]]></comment>
+			</column>
+			<column name="character_id" type="int" jt="4" mandatory="y" >
+				<comment><![CDATA[角色識別碼]]></comment>
+			</column>
+			<index name="pk_map_user_character_user_id" unique="PRIMARY_KEY" >
+				<column name="user_id" />
+				<column name="character_id" />
+			</index>
+			<fk name="fk_map_user_character_user" to_schema="utakaze" to_table="user" delete_action="cascade" update_action="cascade" >
+				<fk_column name="user_id" pk="id" />
+			</fk>
+			<fk name="fk_map_user_character" to_schema="utakaze" to_table="character" delete_action="cascade" update_action="cascade" >
+				<fk_column name="character_id" pk="id" />
+			</fk>
+			<storage><![CDATA[engine=InnoDB]]></storage>
+		</table>
+		<table name="map_user_group" >
+			<comment><![CDATA[使用者群組對應]]></comment>
+			<column name="user_id" type="int" jt="4" mandatory="y" >
+				<comment><![CDATA[使用者識別碼]]></comment>
+			</column>
+			<column name="group_id" type="int" jt="4" mandatory="y" >
+				<comment><![CDATA[群組識別碼]]></comment>
+			</column>
+			<index name="pk_map_user_group" unique="PRIMARY_KEY" >
+				<column name="user_id" />
+				<column name="group_id" />
+			</index>
+			<index name="idx_map_user_group" unique="NORMAL" >
+				<column name="user_id" />
+			</index>
+			<index name="idx_map_user_group_0" unique="NORMAL" >
+				<column name="group_id" />
+			</index>
+			<fk name="fk_map_user_group_user" to_schema="utakaze" to_table="user" delete_action="cascade" update_action="cascade" >
+				<fk_column name="user_id" pk="id" />
+			</fk>
+			<fk name="fk_map_user_group_group" to_schema="utakaze" to_table="group" delete_action="cascade" update_action="cascade" >
+				<fk_column name="group_id" pk="id" />
+			</fk>
+			<storage><![CDATA[engine=InnoDB]]></storage>
+		</table>
+		<table name="role" >
+			<comment><![CDATA[角色]]></comment>
+			<column name="id" type="int" jt="4" mandatory="y" autoincrement="y" >
+				<comment><![CDATA[識別碼]]></comment>
+			</column>
+			<column name="name" type="varchar" length="100" jt="12" mandatory="y" >
+				<comment><![CDATA[名稱]]></comment>
+			</column>
+			<index name="pk_role" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<storage><![CDATA[engine=InnoDB]]></storage>
+		</table>
+		<table name="user" >
+			<comment><![CDATA[使用者資訊]]></comment>
+			<column name="id" type="int" jt="4" mandatory="y" autoincrement="y" >
+				<comment><![CDATA[識別瑪]]></comment>
+			</column>
+			<column name="username" type="varchar" length="100" jt="12" mandatory="y" >
+				<comment><![CDATA[使用者名稱]]></comment>
+			</column>
+			<column name="password" type="varchar" length="100" jt="12" mandatory="y" >
+				<comment><![CDATA[密碼]]></comment>
+			</column>
+			<column name="locked" type="boolean" length="1" decimal="0" jt="-7" mandatory="y" >
+				<defo>0</defo>
+				<comment><![CDATA[是否被鎖]]></comment>
+			</column>
+			<column name="enable" type="boolean" length="1" decimal="0" jt="-7" mandatory="y" >
+				<defo>1</defo>
+				<comment><![CDATA[是否啟用]]></comment>
+			</column>
+			<column name="expired_date" type="datetime" jt="93" >
+				<comment><![CDATA[過期時間]]></comment>
+			</column>
+			<column name="pwd_expired_date" type="datetime" jt="93" >
+				<comment><![CDATA[密碼過期時間]]></comment>
+			</column>
+			<column name="name" type="varchar" length="100" jt="12" >
+				<comment><![CDATA[名稱]]></comment>
+			</column>
+			<index name="pk_user" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="idx_user" unique="UNIQUE" >
+				<column name="username" />
+			</index>
+			<storage><![CDATA[engine=InnoDB]]></storage>
+		</table>
+	</schema>
+	<connector name="mariadb" database="MariaDb" driver_class="org.mariadb.jdbc.Driver" driver_jar="mariadb-java-client-2.3.0.jar" driver_desc="Standard" host="localhost" port="3306" instance="utakaze" user="endsound" passwd="ZW5kc291bmQ=" />
+	<layout name="character" id="Layout_2d2325a" show_relation="columns" >
+		<entity schema="utakaze" name="user" color="3986C1" x="48" y="48" />
+		<entity schema="utakaze" name="character" color="C1D8EE" x="512" y="48" />
+		<entity schema="utakaze" name="map_user_character" color="C1D8EE" x="288" y="48" />
+	</layout>
+	<layout name="user" id="Layout_5acb688" show_relation="columns" >
+		<entity schema="utakaze" name="role" color="C1D8EE" x="480" y="48" />
+		<entity schema="utakaze" name="user" color="C1D8EE" x="48" y="48" />
+		<entity schema="utakaze" name="map_group_role" color="C1D8EE" x="448" y="272" />
+		<entity schema="utakaze" name="group" color="C1D8EE" x="272" y="272" />
+		<entity schema="utakaze" name="map_user_group" color="C1D8EE" x="272" y="48" />
+	</layout>
+</project>

@@ -1,0 +1,30 @@
+{
+  "properties": [
+    {
+      "sourceType": "com.endsound.trpg.security.SecurityProperties$Cors",
+      "name": "com.endsound.trpg.security.cors.allowed-origins",
+      "description": "跨網域允許來源",
+      "type": "java.util.List"
+    },
+    {
+      "sourceType": "com.endsound.trpg.security.SecurityProperties$Jwt",
+      "name": "com.endsound.trpg.security.jwt.key",
+      "description": "Jwt鑰匙",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.endsound.trpg.security.SecurityProperties$Jwt",
+      "name": "com.endsound.trpg.security.jwt.expiration-time",
+      "description": "Jwt鑰匙過期時間（分鐘）",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.endsound.trpg.security.SecurityProperties$Jwt",
+      "name": "com.endsound.trpg.security.jwt.refresh-time",
+      "description": "Jwt鑰匙更換時間（分鐘）",
+      "type": "java.lang.Integer"
+    }
+  ],
+  "hints": [
+  ]
+}

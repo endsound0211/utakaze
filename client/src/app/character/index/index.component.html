@@ -1,0 +1,11 @@
+<ul *ngFor="let p of players; trackBy: trackPlayerById"><div><span>{{p.name}}</span><button type="button" (click)="newCharacter()">創角色</button></div>
+  <li *ngFor="let c of p.characters; trackBy: trackCharacterById" (click)="show(c)">
+    <span>{{c.data.name}}</span>
+  </li>
+</ul>
+<app-character-form
+  *ngIf="character"
+  [character]="character"
+  (onInsert)="insert($event)"
+  (onUpdate)="update($event)"
+  (onDelete)="delete($event)"></app-character-form>

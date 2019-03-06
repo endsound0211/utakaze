@@ -1,0 +1,11 @@
+<form role="form" [formGroup]="formGroup">
+  <div formGroupName="data">
+    <label>名稱</label>
+    <input type="text" formControlName="name">
+  </div>
+  <div>
+    <button type="button" (click)="insert()" *ngIf="!character.id">Save</button>
+    <button type="button" (click)="update()" *ngIf="character.id">Update</button>
+    <button type="button" (click)="delete()" *ngIf="character.id">Delete</button>
+  </div>
+</form>

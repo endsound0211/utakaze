@@ -18,6 +18,7 @@ export class GlobalErrorHandlerService implements ErrorHandler {
     if (error instanceof HttpErrorResponse) {
       switch (error.status) {
         case 401:
+        case 500:
           content = `
             <div class="col-12">
               <p>訊息: ${error.error.message}</p>

@@ -8,9 +8,8 @@ import {GlobalModalService} from './global-modal.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private zone: NgZone) {}
+  constructor() {}
 
   ngOnInit(): void {
-    console.log(this.zone);
   }
 }

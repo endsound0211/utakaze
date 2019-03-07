@@ -7,13 +7,15 @@ import {CharacterService} from './character.service';
 import {PlayerService} from './player.service';
 import {ReactiveFormsModule} from '@angular/forms';
 import { CharacterFormComponent } from './character-form/character-form.component';
+import {NgbAccordionModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [IndexComponent, CharacterFormComponent],
   imports: [
     CommonModule,
     CharacterRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbAccordionModule
   ],
   providers: [
     CharacterService,

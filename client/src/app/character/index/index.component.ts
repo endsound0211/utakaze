@@ -6,6 +6,8 @@ import {Player} from '../player';
 import {Character} from '../character';
 import {from} from 'rxjs';
 import {groupBy, mergeMap, reduce, tap} from 'rxjs/operators';
+import {JwtPayloadService} from '../../security/jwt-payload.service';
+import {User} from '../../security/user';
 
 
 @Component({
@@ -16,14 +18,18 @@ import {groupBy, mergeMap, reduce, tap} from 'rxjs/operators';
 export class IndexComponent implements OnInit, OnDestroy {
   players: Array<Player>;
   character: Character;
+  user: User;
 
   constructor(
     private socketService: SocketService,
     private characterService: CharacterService,
-    private playerService: PlayerService
+    private playerService: PlayerService,
+    private jwtPayloadService: JwtPayloadService
   ) { }
 
   ngOnInit() {
+    this.user = this.jwtPayloadService.user;
+    console.log(this.jwtPayloadService);
     // subscribe player
     this.socketService.subscribe('/user/backend/socket/client/utakaze/player/list', (data) => {
       this.players = JSON.parse(data.body);

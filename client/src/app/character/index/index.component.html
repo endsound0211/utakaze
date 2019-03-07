@@ -1,11 +1,33 @@
-<ul *ngFor="let p of players; trackBy: trackPlayerById"><div><span>{{p.name}}</span><button type="button" (click)="newCharacter()">創角色</button></div>
-  <li *ngFor="let c of p.characters; trackBy: trackCharacterById" (click)="show(c)">
-    <span>{{c.data.name}}</span>
-  </li>
-</ul>
-<app-character-form
-  *ngIf="character"
-  [character]="character"
-  (onInsert)="insert($event)"
-  (onUpdate)="update($event)"
-  (onDelete)="delete($event)"></app-character-form>
+<div class="row h-100">
+  <div class="col-2 p-0">
+    <ul class="list-group">
+      <li *ngFor="let p of players; trackBy: trackPlayerById"
+        class="list-group-item rounded-0">
+        <div class="row">
+          <div class="col align-self-start">
+            <h5>{{p.name}}</h5>
+          </div>
+          <div class="col align-self-end" *ngIf="p.id == user.id">
+            <button type="button" class="btn btn-sm btn-outline-secondary ml-2" (click)="newCharacter()">創角色</button>
+          </div>
+        </div>
+        <div class="row">
+          <div *ngFor="let c of p.characters; trackBy: trackCharacterById"
+              class="col-12"
+               (click)="show(c)">
+            {{c.data.name}}
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="col-8">
+    <app-character-form
+      *ngIf="character"
+      [character]="character"
+      (onInsert)="insert($event)"
+      (onUpdate)="update($event)"
+      (onDelete)="delete($event)"></app-character-form>
+  </div>
+</div>
+

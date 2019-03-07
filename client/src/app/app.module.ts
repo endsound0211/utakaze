@@ -7,6 +7,7 @@ import {GlobalErrorHandlerService} from './global-error-handler.service';
 import { GlobalModalComponent } from './global-modal/global-modal.component';
 import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 import {GlobalModalService} from './global-modal.service';
+import {AutoValidateModule, DefaultErrorMessageMapZhTw, ERROR_MESSAGE_TOKEN} from 'es-ngx-auto-validate';
 
 @NgModule({
   declarations: [
@@ -19,9 +20,11 @@ import {GlobalModalService} from './global-modal.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModalModule
+    NgbModalModule,
+    AutoValidateModule
   ],
   providers: [
+    {provide: ERROR_MESSAGE_TOKEN, useValue: DefaultErrorMessageMapZhTw},
     {provide: ErrorHandler, useClass: GlobalErrorHandlerService},
     GlobalModalService
   ],

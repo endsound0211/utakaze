@@ -1,16 +1,3 @@
-/*modal*/
-.error-modal, .info-modal, .confirm-modal{
-  z-index: 1100;
-}
-
-.error-modal .modal-header{
-  background-color: lightcoral;
-}
-
-.info-modal .modal-header {
-  background-color: lightgreen;
-}
-
-.confirm-modal .modal-header {
-  background-color: lightblue;
+.ng-invalid .ng-touched{
+  border-color: rgb(169, 68, 66)
 }

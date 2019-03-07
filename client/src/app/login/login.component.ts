@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoginService} from './login.service';
 import {map, tap} from 'rxjs/operators';
@@ -7,6 +7,7 @@ import {TokenHandlerService} from './token-handler.service';
 import {User} from './user';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {RegisterFormComponent} from './register-form/register-form.component';
+import {AutoValidateDirective} from 'es-ngx-auto-validate';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ import {RegisterFormComponent} from './register-form/register-form.component';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  @ViewChildren(AutoValidateDirective) autoValidates: QueryList<AutoValidateDirective>;
   formGroup: FormGroup;
 
   constructor(
@@ -38,7 +40,12 @@ export class LoginComponent implements OnInit {
           map(data => data.token),
           tap(this.tokenHandlerService.handle)
         )
-        .subscribe(token => this.router.navigate(['/', 'backend', 'character']));
+        .subscribe(
+          token => this.router.navigate(['/', 'backend', 'character']),
+          error => this.formGroup.reset({username: '', password: ''})
+        );
+    } else {
+      this.autoValidates.forEach((autoValidate) => autoValidate.checkError());
     }
   }
 

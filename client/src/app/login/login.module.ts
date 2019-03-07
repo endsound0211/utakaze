@@ -8,6 +8,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {LoginService} from './login.service';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
+import {AutoValidateModule} from 'es-ngx-auto-validate';
 
 @NgModule({
   declarations: [LoginComponent, RegisterFormComponent],
@@ -17,7 +18,8 @@ import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
     LoginRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbModalModule
+    NgbModalModule,
+    AutoValidateModule
   ],
   providers: [
     LoginService

@@ -29,7 +29,7 @@ export class GlobalErrorHandlerService implements ErrorHandler {
           content = '非預期Http錯誤';
       }
     } else {
-      content = '非預期錯誤';
+      throw error;
     }
     this.zone.run(() => this.openErrorAlert(content));
 

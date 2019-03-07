@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoginService} from '../login.service';
+import {AutoValidateDirective} from 'es-ngx-auto-validate';
 
 @Component({
   selector: 'app-register-form',
@@ -9,10 +10,11 @@ import {LoginService} from '../login.service';
   styleUrls: ['./register-form.component.css']
 })
 export class RegisterFormComponent implements OnInit {
+  @ViewChildren(AutoValidateDirective) autoValidates: QueryList<AutoValidateDirective>;
   formGroup: FormGroup;
 
   constructor(
-    private activeModal: NgbActiveModal,
+    public activeModal: NgbActiveModal,
     private fb: FormBuilder,
     private loginService: LoginService
   ) { }
@@ -31,6 +33,7 @@ export class RegisterFormComponent implements OnInit {
       this.loginService.register(user)
         .subscribe(() => this.activeModal.close('register success'));
     } else {
+      this.autoValidates.forEach((autoValidate) => autoValidate.checkError());
     }
   }
 }

@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class DefaultDbUserDetailsService implements UserDetailsService {
@@ -24,9 +25,8 @@ public class DefaultDbUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.fetchOneByUsername(username);
-        if(Objects.isNull(user))
-            return null;
+        User user = Optional.ofNullable(userDao.fetchOneByUsername(username))
+                .orElseThrow(() -> new UsernameNotFoundException("帳號密碼錯誤"));
 
         List<String> roles = roleDao.fetchRolesByUsername(username);
 

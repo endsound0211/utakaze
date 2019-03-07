@@ -100,6 +100,28 @@ public class SecurityConfiguration {
         }
     }
 
+    @Configuration
+    @Order(2)
+    public static class FrontendConfiguration extends WebSecurityConfigurerAdapter {
+        @Autowired
+        private AuthenticationEntryPoint authenticationEntryPoint;
+        @Autowired
+        private CorsConfigurationSource corsConfigurationSource;
+        @Autowired
+        private GenericFilterBean exceptionFilter;
+
+        @Override
+        protected void configure(HttpSecurity http) throws Exception{
+            http.mvcMatcher("/api/**")
+                    .authorizeRequests().anyRequest().permitAll().and()
+                    .httpBasic().authenticationEntryPoint(authenticationEntryPoint)
+                    .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                    .cors().configurationSource(corsConfigurationSource).and()
+                    .csrf().disable()
+                    .addFilterBefore(exceptionFilter, AbstractPreAuthenticatedProcessingFilter.class);
+        }
+    }
+
     @Bean
     public AuthenticationEntryPoint defaultAuthenticationEntryPoint(){
         return new DefaultEntryPoint();

@@ -4,6 +4,9 @@ import {LoginService} from './login.service';
 import {map, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {TokenHandlerService} from './token-handler.service';
+import {User} from './user';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {RegisterFormComponent} from './register-form/register-form.component';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +20,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private loginService: LoginService,
     private router: Router,
-    private tokenHandlerService: TokenHandlerService
+    private tokenHandlerService: TokenHandlerService,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit() {
@@ -27,7 +31,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  submit() {
+  login() {
     if (this.formGroup.valid) {
       this.loginService.login(this.formGroup.get('username').value, this.formGroup.get('password').value)
         .pipe(
@@ -36,5 +40,9 @@ export class LoginComponent implements OnInit {
         )
         .subscribe(token => this.router.navigate(['/', 'backend', 'character']));
     }
+  }
+
+  openRegisterForm() {
+    this.modalService.open(RegisterFormComponent, { size: 'lg' });
   }
 }

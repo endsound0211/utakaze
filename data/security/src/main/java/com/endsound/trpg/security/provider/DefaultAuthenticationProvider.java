@@ -30,36 +30,36 @@ public class DefaultAuthenticationProvider implements AuthenticationProvider {
         String username = Optional.of(token.getPrincipal())
                 .map(Object::toString)
                 .filter(StringUtils::isNotBlank)
-                .orElseThrow(() -> new UsernameNotFoundException("User Not Found"));
+                .orElseThrow(() -> new UsernameNotFoundException("帳號密碼錯誤"));
 
         String password = Optional.of(token.getCredentials())
                 .map(Object::toString)
                 .filter(StringUtils::isNotBlank)
-                .orElseThrow(() -> new BadCredentialsException("Password Invalid"));
+                .orElseThrow(() -> new BadCredentialsException("帳號密碼錯誤"));
 
         try {
             password = Base64.getEncoder()
                     .encodeToString(MessageDigest.getInstance("MD5").digest(password.getBytes()));
         }catch (NoSuchAlgorithmException e) {
-            throw new BadCredentialsException("Password Invalid");
+            throw new BadCredentialsException("帳號密碼錯誤");
         }
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
         if(!userDetails.isEnabled())
-            throw new DisabledException("Account Disabled");
+            throw new DisabledException("帳號已停用");
 
         if(!userDetails.isAccountNonLocked())
-            throw new LockedException("Account Locked");
+            throw new LockedException("帳號已被鎖");
 
         if(!userDetails.isAccountNonExpired())
-            throw new AccountExpiredException("Account Expired");
+            throw new AccountExpiredException("帳號過期");
 
         if(!userDetails.isCredentialsNonExpired())
-            throw new CredentialsExpiredException("Password Expired");
+            throw new CredentialsExpiredException("密碼過期");
 
         if(!userDetails.getPassword().equals(password))
-            throw new BadCredentialsException("Password Invalid");
+            throw new BadCredentialsException("帳號密碼錯誤");
 
         AuthenticationToken authenticationToken = new AuthenticationToken(
                 userDetails.getUsername(),

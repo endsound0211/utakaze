@@ -33,5 +33,6 @@ dependencies {
     implementation project(':socket')
     implementation project(':backend-character')
     implementation project(':backend-player')
+    implementation project(':frontend-user')
     
 }

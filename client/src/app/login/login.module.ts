@@ -6,14 +6,18 @@ import { LoginComponent } from './login.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {LoginService} from './login.service';
+import { RegisterFormComponent } from './register-form/register-form.component';
+import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, RegisterFormComponent],
+  entryComponents: [RegisterFormComponent],
   imports: [
     CommonModule,
     LoginRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModalModule
   ],
   providers: [
     LoginService

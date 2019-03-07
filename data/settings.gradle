@@ -4,4 +4,5 @@ include 'backend-demo'
 include 'socket'
 include 'backend-character'
 include 'backend-player'
+include 'frontend-user'
 

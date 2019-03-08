@@ -34,8 +34,28 @@ export class CharacterFormComponent implements OnInit, OnChanges {
     this.formGroup = this.fb.group({
       id: [null],
       data: this.fb.group({
+        // basic info
         name: [null],
         race: [null],
+        starDice: [null],
+        // attribute
+        hope: [null],
+        brave: [null],
+        intelligence: [null],
+        love: [null],
+        currentHope: [null],
+        // skill
+        fight: [null],
+        adventure: [null],
+        ride: [null],
+        hunting: [null],
+        perception: [null],
+        knowledge: [null],
+        poem: [null],
+        convince: [null],
+        pray: [null],
+
+        // character info
         sex: [null],
         age: [null],
         height: [null],
@@ -49,7 +69,7 @@ export class CharacterFormComponent implements OnInit, OnChanges {
         musicalInstrument: [null],
         belongLocation: [null],
         belongGroup: [null],
-        career: [null]
+        career: [null],
       }),
       belongUserId: [null]
     });

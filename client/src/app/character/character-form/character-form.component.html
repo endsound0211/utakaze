@@ -16,6 +16,115 @@
         </div>
       </div>
       <div class="form-row">
+        <div class="col-6">
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="hope">希望</label>
+              <div class="form-row">
+                <div class="col-6">
+                  <input type="number" id="currentHope" class="form-control" placeholder="現在值" formControlName="currentHope">
+                </div>
+                <div class="col-6">
+                  <input type="number" id="hope" class="form-control" placeholder="最大值" formControlName="hope">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="starDice">星骰</label>
+              <select class="form-control" id="starDice" formControlName="starDice">
+                <option [ngValue]="null">請選擇星骰</option>
+                <!--<option *ngFor="let option of raceParams" [ngValue]="option.name">{{option.name}}</option>-->
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-3 border-right">
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="brave">勇氣</label>
+              <input type="number" id="brave" class="form-control" formControlName="brave">
+            </div>
+          </div>
+        </div>
+        <div class="col-9">
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="fight">戰鬥</label>
+              <input type="number" id="fight" class="form-control" formControlName="fight">
+            </div>
+            <div class="form-group col">
+              <label for="adventure">冒險</label>
+              <input type="number" id="adventure" class="form-control" formControlName="adventure">
+            </div>
+            <div class="form-group col">
+              <label for="ride">騎乘</label>
+              <input type="number" id="ride" class="form-control" formControlName="ride">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-3 border-right">
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="intelligence">智慧</label>
+              <input type="number" id="intelligence" class="form-control" formControlName="intelligence">
+            </div>
+          </div>
+        </div>
+        <div class="col-9 border-top border-bottom">
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="hunting">狩獵</label>
+              <input type="number" id="hunting" class="form-control" formControlName="hunting">
+            </div>
+            <div class="form-group col">
+              <label for="perception">感覺</label>
+              <input type="number" id="perception" class="form-control" formControlName="perception">
+            </div>
+            <div class="form-group col">
+              <label for="knowledge">學問</label>
+              <input type="number" id="knowledge" class="form-control" formControlName="knowledge">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-3 border-right">
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="intelligence">愛情</label>
+              <input type="number" id="love" class="form-control" formControlName="love">
+            </div>
+          </div>
+        </div>
+        <div class="col-9">
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="hunting">詩</label>
+              <input type="number" id="poem" class="form-control" formControlName="poem">
+            </div>
+            <div class="form-group col">
+              <label for="perception">說服</label>
+              <input type="number" id="convince" class="form-control" formControlName="convince">
+            </div>
+            <div class="form-group col">
+              <label for="knowledge">祈禱</label>
+              <input type="number" id="pray" class="form-control" formControlName="pray">
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset class="border p-2">
+      <legend class="w-auto">角色資料</legend>
+      <div class="form-row">
         <div class="form-group col">
           <label for="sex">性別</label>
           <select class="form-control" id="sex" formControlName="sex">

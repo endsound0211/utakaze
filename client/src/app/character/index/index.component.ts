@@ -8,6 +8,7 @@ import {from} from 'rxjs';
 import {groupBy, mergeMap, reduce, tap} from 'rxjs/operators';
 import {JwtPayloadService} from '../../security/jwt-payload.service';
 import {User} from '../../security/user';
+import {GlobalAlertService} from '../../global-alert/global-alert.service';
 
 
 @Component({
@@ -24,12 +25,12 @@ export class IndexComponent implements OnInit, OnDestroy {
     private socketService: SocketService,
     private characterService: CharacterService,
     private playerService: PlayerService,
-    private jwtPayloadService: JwtPayloadService
+    private jwtPayloadService: JwtPayloadService,
+    private globalAlertService: GlobalAlertService
   ) { }
 
   ngOnInit() {
     this.user = this.jwtPayloadService.user;
-    console.log(this.jwtPayloadService);
     // subscribe player
     this.socketService.subscribe('/user/backend/socket/client/utakaze/player/list', (data) => {
       this.players = JSON.parse(data.body);
@@ -42,6 +43,7 @@ export class IndexComponent implements OnInit, OnDestroy {
       if (!this.players.find(p => p.id === player.id)) {
         this.players.push(player);
       }
+      this.globalAlertService.alertMessage({type: 'info', message: `${player.name}加入`});
     });
 
     // subscribe character
@@ -65,6 +67,7 @@ export class IndexComponent implements OnInit, OnDestroy {
       if (player) {
         player.characters.push(character);
         this.character = character;
+        this.globalAlertService.alertMessage({type: 'info', message: `${player.name}新建角色:${character.data.name}`});
       }
     });
     this.socketService.subscribe('/backend/socket/client/utakaze/character/update', (data) => {
@@ -75,6 +78,7 @@ export class IndexComponent implements OnInit, OnDestroy {
         const oldCharacter: Character = player.characters.find(c => c.id === character.id);
         if (oldCharacter) {
           oldCharacter.data = character.data;
+          this.globalAlertService.alertMessage({type: 'info', message: `${player.name}更新角色:${character.data.name}`});
         }
       }
     });
@@ -86,6 +90,7 @@ export class IndexComponent implements OnInit, OnDestroy {
         const oldIndex = player.characters.findIndex(c => c.id === character.id);
         if (oldIndex !== -1) {
           player.characters.splice(oldIndex, 1);
+          this.globalAlertService.alertMessage({type: 'danger', message: `${player.name}刪除角色:${character.data.name}`});
         }
       }
     });

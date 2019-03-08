@@ -29,6 +29,6 @@ export class CharacterService {
       id: character.id,
       belongUserId: character.belongUserId,
       data: JSON.stringify(character.data)
-    }
+    };
   }
 }

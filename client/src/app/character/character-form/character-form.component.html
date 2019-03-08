@@ -37,7 +37,7 @@
               <label for="starDice">星骰</label>
               <select class="form-control" id="starDice" formControlName="starDice">
                 <option [ngValue]="null">請選擇星骰</option>
-                <!--<option *ngFor="let option of raceParams" [ngValue]="option.name">{{option.name}}</option>-->
+                <option *ngFor="let option of starDiceParams" [ngValue]="option.brief">{{option.brief}}・{{option.name}}</option>
               </select>
             </div>
           </div>

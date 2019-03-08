@@ -13,7 +13,7 @@ export class GlobalModalComponent implements OnInit {
   @Input()
   content: string;
 
-  constructor(private activeModal: NgbActiveModal) { }
+  constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
   }

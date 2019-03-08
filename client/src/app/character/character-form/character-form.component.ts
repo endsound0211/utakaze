@@ -5,6 +5,8 @@ import {RaceParamService} from '../../parameter/race/race-param.service';
 import {RaceParam} from '../../parameter/race/race-param';
 import {SexParam} from '../../parameter/sex/sex-param';
 import {SexParamService} from '../../parameter/sex/sex-param.service';
+import {StarDiceParam} from '../../parameter/star-dice/star-dice-param';
+import {StarDiceParamService} from '../../parameter/star-dice/star-dice-param.service';
 
 @Component({
   selector: 'app-character-form',
@@ -14,6 +16,7 @@ import {SexParamService} from '../../parameter/sex/sex-param.service';
 export class CharacterFormComponent implements OnInit, OnChanges {
   @Input()
   character: Character;
+  defaultCharacter: Character;
   formGroup: FormGroup;
 
   @Output()
@@ -25,11 +28,13 @@ export class CharacterFormComponent implements OnInit, OnChanges {
 
   raceParams: Array<RaceParam>;
   sexParams: Array<SexParam>;
+  starDiceParams: Array<StarDiceParam>;
 
   constructor(
     private fb: FormBuilder,
     private raceParamService: RaceParamService,
-    private sexParamService: SexParamService
+    private sexParamService: SexParamService,
+    private starDiceService: StarDiceParamService
   ) {
     this.formGroup = this.fb.group({
       id: [null],
@@ -73,6 +78,7 @@ export class CharacterFormComponent implements OnInit, OnChanges {
       }),
       belongUserId: [null]
     });
+    this.defaultCharacter = this.formGroup.value;
   }
 
   ngOnInit() {
@@ -80,10 +86,13 @@ export class CharacterFormComponent implements OnInit, OnChanges {
       .subscribe((params) => this.raceParams = params);
     this.sexParamService.fetch()
       .subscribe((params) => this.sexParams = params);
+    this.starDiceService.fetch()
+      .subscribe((params) => this.starDiceParams = params);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('character' in changes) {
+      this.formGroup.reset(this.defaultCharacter);
       this.formGroup.patchValue(changes.character.currentValue);
     }
   }

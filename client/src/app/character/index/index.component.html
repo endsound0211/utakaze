@@ -8,13 +8,13 @@
             <h5>{{p.name}}</h5>
           </div>
           <div class="col align-self-end" *ngIf="p.id == user.id">
-            <button type="button" class="btn btn-sm btn-outline-secondary ml-2" (click)="newCharacter()">創角色</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary ml-2" (click)="insert()">創角色</button>
           </div>
         </div>
         <div class="row">
           <div *ngFor="let c of p.characters; trackBy: trackCharacterById"
               class="col-12"
-               (click)="show(c)">
+               (click)="update(c)">
             {{c.data.name}}
           </div>
         </div>
@@ -22,12 +22,7 @@
     </ul>
   </div>
   <div class="col-8">
-    <app-character-form
-      *ngIf="character"
-      [character]="character"
-      (onInsert)="insert($event)"
-      (onUpdate)="update($event)"
-      (onDelete)="delete($event)"></app-character-form>
+    <router-outlet></router-outlet>
   </div>
 </div>
 

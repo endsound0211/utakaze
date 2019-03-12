@@ -15,7 +15,7 @@ export class GlobalModalService {
     this.openModal('訊息', content, 'info-modal', afterClose, afterClose);
   }
 
-  openConffirmAlert(content: string, afterConfirm?: () => void, afterCancel?: () => void) {
+  openConfirmAlert(content: string, afterConfirm?: () => void, afterCancel?: () => void) {
     this.openModal('確認', content, 'info-modal', afterConfirm, afterCancel);
   }
 

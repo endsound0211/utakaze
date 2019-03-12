@@ -1,0 +1,6 @@
+<app-character-form
+  *ngIf="character"
+  [character]="character"
+  (onInsert)="insert($event)"
+  (onUpdate)="update($event)"
+  (onDelete)="delete($event)"></app-character-form>

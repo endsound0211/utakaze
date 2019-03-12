@@ -4,11 +4,12 @@ import {SocketService} from '../../backend/socket.service';
 import {PlayerService} from '../player.service';
 import {Player} from '../player';
 import {Character} from '../character';
-import {from} from 'rxjs';
+import {from, Subject} from 'rxjs';
 import {groupBy, mergeMap, reduce, tap} from 'rxjs/operators';
 import {JwtPayloadService} from '../../security/jwt-payload.service';
 import {User} from '../../security/user';
 import {GlobalAlertService} from '../../global-alert/global-alert.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 
 @Component({
@@ -18,7 +19,7 @@ import {GlobalAlertService} from '../../global-alert/global-alert.service';
 })
 export class IndexComponent implements OnInit, OnDestroy {
   players: Array<Player>;
-  character: Character;
+  selectedCharacter$: Subject<Character> = new Subject<Character>();
   user: User;
 
   constructor(
@@ -26,7 +27,9 @@ export class IndexComponent implements OnInit, OnDestroy {
     private characterService: CharacterService,
     private playerService: PlayerService,
     private jwtPayloadService: JwtPayloadService,
-    private globalAlertService: GlobalAlertService
+    private globalAlertService: GlobalAlertService,
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -66,7 +69,7 @@ export class IndexComponent implements OnInit, OnDestroy {
       const player = this.players.find(p => p.id === character.belongUserId);
       if (player) {
         player.characters.push(character);
-        this.character = character;
+        this.selectedCharacter$.next(character);
         this.globalAlertService.alertMessage({type: 'info', message: `${player.name}新建角色:${character.data.name}`});
       }
     });
@@ -103,17 +106,18 @@ export class IndexComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
   }
 
-  insert(character: Character): void {
-    this.characterService.insert(character);
+  insert(): void {
+    this.selectedCharacter$.next(new Character());
+    this.router.navigate(['.', 'edit'], {
+      relativeTo: this.route,
+    });
   }
 
-  update(character: Character): void {
-    this.characterService.update(character);
-  }
-
-  delete(character: Character): void {
-    this.hide();
-    this.characterService.delete(character);
+  update(character: Character) {
+    this.selectedCharacter$.next(character);
+    this.router.navigate(['.', 'edit'], {
+      relativeTo: this.route,
+    });
   }
 
   trackPlayerById(index, player) {
@@ -124,15 +128,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     return character.id;
   }
 
-  show(character: Character) {
-    this.character = character;
-  }
-
   hide() {
-    this.character = null;
-  }
-
-  newCharacter() {
-    this.character = new Character();
+    // this.character = null;
   }
 }

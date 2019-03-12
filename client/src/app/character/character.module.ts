@@ -8,9 +8,11 @@ import {PlayerService} from './player.service';
 import {ReactiveFormsModule} from '@angular/forms';
 import { CharacterFormComponent } from './character-form/character-form.component';
 import {NgbAccordionModule} from '@ng-bootstrap/ng-bootstrap';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { EditComponent } from './edit/edit.component';
 
 @NgModule({
-  declarations: [IndexComponent, CharacterFormComponent],
+  declarations: [IndexComponent, CharacterFormComponent, DashboardComponent, EditComponent],
   imports: [
     CommonModule,
     CharacterRoutingModule,

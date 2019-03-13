@@ -13,7 +13,8 @@
         </div>
         <div class="row">
           <div *ngFor="let c of p.characters; trackBy: trackCharacterById"
-              class="col-12"
+               class="col-12 character"
+               [ngClass]="{'selected': selectedCharacter$.getValue() === c}"
                (click)="update(c)">
             {{c.data.name}}
           </div>

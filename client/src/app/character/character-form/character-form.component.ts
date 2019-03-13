@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Character} from '../character';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {RaceParamService} from '../../parameter/race/race-param.service';
 import {RaceParam} from '../../parameter/race/race-param';
 import {SexParam} from '../../parameter/sex/sex-param';
@@ -59,6 +59,7 @@ export class CharacterFormComponent implements OnInit, OnChanges {
         poem: [null],
         convince: [null],
         pray: [null],
+        skills: this.fb.array([]),
 
         // character info
         sex: [null],
@@ -92,9 +93,38 @@ export class CharacterFormComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('character' in changes) {
+      const character = changes.character.currentValue;
       this.formGroup.reset(this.defaultCharacter);
-      this.formGroup.patchValue(changes.character.currentValue);
+      this.clearSkills();
+
+      if (character.data && character.data.skills) {
+        character.data.skills.forEach(skill => this.addSkill());
+      }
+      this.formGroup.patchValue(character);
     }
+  }
+
+  get skills(): FormArray {
+    return this.formGroup.get('data.skills') as FormArray;
+  }
+
+  addSkill() {
+    this.skills.push(this.fb.group({
+      name: [null],
+      dice: [null],
+      effect: [null],
+      description: [null]
+    }));
+  }
+
+  clearSkills() {
+    while (this.skills.length !== 0 ) {
+      this.removeSkill(0);
+    }
+  }
+
+  removeSkill(index: number) {
+    this.skills.removeAt(index);
   }
 
   insert() {

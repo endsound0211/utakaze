@@ -4,7 +4,7 @@ import {SocketService} from '../../backend/socket.service';
 import {PlayerService} from '../player.service';
 import {Player} from '../player';
 import {Character} from '../character';
-import {from, Subject} from 'rxjs';
+import {BehaviorSubject, from, Subject} from 'rxjs';
 import {groupBy, mergeMap, reduce, tap} from 'rxjs/operators';
 import {JwtPayloadService} from '../../security/jwt-payload.service';
 import {User} from '../../security/user';
@@ -19,7 +19,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class IndexComponent implements OnInit, OnDestroy {
   players: Array<Player>;
-  selectedCharacter$: Subject<Character> = new Subject<Character>();
+  selectedCharacter$: Subject<Character> = new BehaviorSubject<Character>(null);
   user: User;
 
   constructor(

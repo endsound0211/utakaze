@@ -161,7 +161,24 @@
           <input type="number" class="form-control" formControlName="maxValue" placeholder="最大值">
         </div>
         <div class="col-4 form-group">
-          <input type="text" class="form-control" formControlName="currentValue" placeholder="目前值">
+          <input type="number" class="form-control" formControlName="currentValue" placeholder="目前值">
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="border p-2" formArrayName="items">
+      <legend class="w-auto">物品</legend>
+      <div class="form-row">
+        <div class="form-group col-2">
+          <button type="button" class="btn btn-outline-primary" (click)="addItem()">新增物品</button>
+        </div>
+      </div>
+      <div class="form-row" *ngFor="let control of items.controls; let i = index" [formGroupName]="i">
+        <div class="col-4 form-group">
+          <input type="text" class="form-control" formControlName="name" placeholder="名稱">
+        </div>
+        <div class="col-8 form-group">
+          <input type="text" class="form-control" formControlName="effort" placeholder="效果">
         </div>
       </div>
     </fieldset>

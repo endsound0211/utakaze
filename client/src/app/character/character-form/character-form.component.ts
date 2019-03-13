@@ -62,6 +62,8 @@ export class CharacterFormComponent implements OnInit, OnChanges {
         skills: this.fb.array([]),
         // relation
         relation: this.fb.array([]),
+        // item
+        items: this.fb.array([]),
 
         // character info
         sex: [null],
@@ -99,10 +101,12 @@ export class CharacterFormComponent implements OnInit, OnChanges {
       this.formGroup.reset(this.defaultCharacter);
       this.clearSkills();
       this.clearRelation();
+      this.clearItems();
 
       if (character.data) {
         if (character.data.skills) {character.data.skills.forEach(skill => this.addSkill()); }
         if (character.data.relation) {character.data.relation.forEach(r => this.addRelation()); }
+        if (character.data.items) {character.data.items.forEach(item => this.addItem()); }
       }
       this.formGroup.patchValue(character);
     }
@@ -150,6 +154,27 @@ export class CharacterFormComponent implements OnInit, OnChanges {
   clearRelation() {
     while (this.relation.length !== 0) {
       this.removeRelation(0);
+    }
+  }
+
+  get items(): FormArray {
+    return this.formGroup.get('data.items') as FormArray;
+  }
+
+  addItem() {
+    this.items.push(this.fb.group({
+      name: [null],
+      effort: [null]
+    }));
+  }
+
+  removeItem(index: number) {
+    this.items.removeAt(index);
+  }
+
+  clearItems() {
+    while (this.items.length !== 0) {
+      this.removeItem(0);
     }
   }
 

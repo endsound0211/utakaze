@@ -9,6 +9,7 @@ import {StarDiceParam} from '../../parameter/star-dice/star-dice-param';
 import {StarDiceParamService} from '../../parameter/star-dice/star-dice-param.service';
 import {transition, trigger, useAnimation} from '@angular/animations';
 import {fadeIn, fadeOut} from 'ng-animate';
+import {JwtPayloadService} from '../../security/jwt-payload.service';
 
 @Component({
   selector: 'app-character-form',
@@ -42,7 +43,8 @@ export class CharacterFormComponent implements OnInit, OnChanges {
     private fb: FormBuilder,
     private raceParamService: RaceParamService,
     private sexParamService: SexParamService,
-    private starDiceService: StarDiceParamService
+    private starDiceService: StarDiceParamService,
+    private jwtPayloadService: JwtPayloadService
   ) {
     this.formGroup = this.fb.group({
       id: [null],
@@ -209,5 +211,13 @@ export class CharacterFormComponent implements OnInit, OnChanges {
 
   get isNew(): boolean {
     return this.character.id == null;
+  }
+
+  get isOwner(): boolean {
+    return this.jwtPayloadService.user.id === this.character.belongUserId;
+  }
+
+  get isHide(): boolean {
+    return this.character.data && this.character.data.isHide;
   }
 }

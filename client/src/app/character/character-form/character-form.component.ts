@@ -88,6 +88,10 @@ export class CharacterFormComponent implements OnInit, OnChanges {
         belongLocation: [null],
         belongGroup: [null],
         career: [null],
+
+        // other
+        description: [null],
+        note: [null],
       }),
       belongUserId: [null]
     });

@@ -10,6 +10,7 @@ import {GlobalModalService} from './global-modal.service';
 import {AutoValidateModule, DefaultErrorMessageMapZhTw, ERROR_MESSAGE_TOKEN} from 'es-ngx-auto-validate';
 import {HttpClientModule} from '@angular/common/http';
 import {GlobalAlertModule} from './global-alert/global-alert.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {GlobalAlertModule} from './global-alert/global-alert.module';
     NgbModalModule,
     AutoValidateModule,
     HttpClientModule,
-    GlobalAlertModule
+    GlobalAlertModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {provide: ERROR_MESSAGE_TOKEN, useValue: DefaultErrorMessageMapZhTw},

@@ -1,0 +1,9 @@
+.remove:hover {
+  color: #dc3545;
+  cursor: pointer;
+}
+
+.add:hover {
+  color: #007bff;
+  cursor: pointer;
+}

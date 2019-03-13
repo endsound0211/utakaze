@@ -7,11 +7,19 @@ import {SexParam} from '../../parameter/sex/sex-param';
 import {SexParamService} from '../../parameter/sex/sex-param.service';
 import {StarDiceParam} from '../../parameter/star-dice/star-dice-param';
 import {StarDiceParamService} from '../../parameter/star-dice/star-dice-param.service';
+import {transition, trigger, useAnimation} from '@angular/animations';
+import {fadeIn, fadeOut} from 'ng-animate';
 
 @Component({
   selector: 'app-character-form',
   templateUrl: './character-form.component.html',
-  styleUrls: ['./character-form.component.css']
+  styleUrls: ['./character-form.component.css'],
+  animations: [
+    trigger('fade', [
+      transition('void => *', useAnimation(fadeIn, {params: {timing: 1}})),
+      transition('* => void', useAnimation(fadeOut, {params: {timing: 1}}))
+    ])
+  ]
 })
 export class CharacterFormComponent implements OnInit, OnChanges {
   @Input()
@@ -190,5 +198,9 @@ export class CharacterFormComponent implements OnInit, OnChanges {
 
   delete() {
     this.onDelete.emit(this.formGroup.value);
+  }
+
+  get isNew(): boolean {
+    return this.character.id == null;
   }
 }

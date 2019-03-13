@@ -124,17 +124,14 @@
     </fieldset>
 
     <fieldset class="border p-2" formArrayName="skills">
-      <legend class="w-auto">技能</legend>
-      <div class="form-row">
-        <div class="form-group col-2">
-          <button type="button" class="btn btn-outline-primary" (click)="addSkill()">新增技能</button>
-        </div>
-      </div>
-      <div class="form-row" *ngFor="let control of skills.controls; let i = index" [formGroupName]="i">
+      <legend class="w-auto">技能<span class="fas fa-plus add" (click)="addSkill()"></span></legend>
+      <div class="form-row"
+           *ngFor="let control of skills.controls; let i = index" [formGroupName]="i"
+          [@fade]>
         <div class="col-2 form-group">
           <input type="text" class="form-control" formControlName="name" placeholder="名稱">
         </div>
-        <div class="col-2 form-group">
+        <div class="col-1 form-group">
           <input type="text" class="form-control" formControlName="dice" placeholder="判定">
         </div>
         <div class="col-4 form-group">
@@ -143,18 +140,18 @@
         <div class="col-4 form-group">
           <input type="text" class="form-control" formControlName="description" placeholder="描述">
         </div>
+        <div class="col-1 form-group">
+          <span class="fas fa-times fa-2x remove" (click)="removeSkill(i)"></span>
+        </div>
       </div>
     </fieldset>
 
     <fieldset class="border p-2" formArrayName="relation">
-      <legend class="w-auto">友情</legend>
-      <div class="form-row">
-        <div class="form-group col-2">
-          <button type="button" class="btn btn-outline-primary" (click)="addRelation()">新增友情</button>
-        </div>
-      </div>
-      <div class="form-row" *ngFor="let control of relation.controls; let i = index" [formGroupName]="i">
-        <div class="col-4 form-group">
+      <legend class="w-auto">友情<span class="fas fa-plus add" (click)="addRelation()"></span></legend>
+      <div class="form-row"
+           *ngFor="let control of relation.controls; let i = index" [formGroupName]="i"
+           [@fade]>
+        <div class="col-3 form-group">
           <input type="text" class="form-control" formControlName="name" placeholder="對象">
         </div>
         <div class="col-4 form-group">
@@ -163,22 +160,25 @@
         <div class="col-4 form-group">
           <input type="number" class="form-control" formControlName="currentValue" placeholder="目前值">
         </div>
+        <div class="col-1 form-group">
+          <span class="fas fa-times fa-2x remove" (click)="removeRelation(i)"></span>
+        </div>
       </div>
     </fieldset>
 
     <fieldset class="border p-2" formArrayName="items">
-      <legend class="w-auto">物品</legend>
-      <div class="form-row">
-        <div class="form-group col-2">
-          <button type="button" class="btn btn-outline-primary" (click)="addItem()">新增物品</button>
-        </div>
-      </div>
-      <div class="form-row" *ngFor="let control of items.controls; let i = index" [formGroupName]="i">
-        <div class="col-4 form-group">
+      <legend class="w-auto">物品<span class="fas fa-plus add" (click)="addItem()"></span></legend>
+      <div class="form-row"
+           *ngFor="let control of items.controls; let i = index" [formGroupName]="i"
+           [@fade]>
+        <div class="col-3 form-group">
           <input type="text" class="form-control" formControlName="name" placeholder="名稱">
         </div>
         <div class="col-8 form-group">
           <input type="text" class="form-control" formControlName="effort" placeholder="效果">
+        </div>
+        <div class="col-1 form-group">
+          <span class="fas fa-times fa-2x remove" (click)="removeItem(i)"></span>
         </div>
       </div>
     </fieldset>
@@ -256,11 +256,13 @@
       </div>
     </fieldset>
 
-    <div class="form-group row">
+    <div class="form-row">
       <div class="col-12">
-        <button type="button" class="btn btn-primary mr-3" (click)="insert()" *ngIf="!character.id">新增</button>
-        <button type="button" class="btn btn-primary mr-3" (click)="update()" *ngIf="character.id">更新</button>
-        <button type="button" class="btn btn-danger mr-3" (click)="delete()" *ngIf="character.id">刪除</button>
+        <div class="form-group">
+          <button type="button" class="btn btn-primary mr-3" (click)="insert()" *ngIf="isNew">新增</button>
+          <button type="button" class="btn btn-primary mr-3" (click)="update()" *ngIf="!isNew">更新</button>
+          <button type="button" class="btn btn-danger mr-3" (click)="delete()" *ngIf="!isNew">刪除</button>
+        </div>
       </div>
     </div>
   </div>

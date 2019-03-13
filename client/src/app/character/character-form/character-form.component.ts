@@ -92,6 +92,9 @@ export class CharacterFormComponent implements OnInit, OnChanges {
         // other
         description: [null],
         note: [null],
+
+        // state
+        isHide: [false]
       }),
       belongUserId: [null]
     });

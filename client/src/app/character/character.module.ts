@@ -7,7 +7,7 @@ import {CharacterService} from './character.service';
 import {PlayerService} from './player.service';
 import {ReactiveFormsModule} from '@angular/forms';
 import { CharacterFormComponent } from './character-form/character-form.component';
-import {NgbAccordionModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbAccordionModule, NgbButtonsModule} from '@ng-bootstrap/ng-bootstrap';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EditComponent } from './edit/edit.component';
 
@@ -17,7 +17,8 @@ import { EditComponent } from './edit/edit.component';
     CommonModule,
     CharacterRoutingModule,
     ReactiveFormsModule,
-    NgbAccordionModule
+    NgbAccordionModule,
+    NgbButtonsModule
   ],
   providers: [
     CharacterService,

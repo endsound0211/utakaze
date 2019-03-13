@@ -272,15 +272,29 @@
       </div>
     </fieldset>
 
-    <div class="form-row">
-      <div class="col-12">
-        <div class="form-group">
-          <button type="button" class="btn btn-primary mr-3" (click)="insert()" *ngIf="isNew">新增</button>
-          <button type="button" class="btn btn-primary mr-3" (click)="update()" *ngIf="!isNew">更新</button>
-          <button type="button" class="btn btn-danger mr-3" (click)="delete()" *ngIf="!isNew">刪除</button>
+    <fieldset class="border p-2">
+      <legend class="w-auto">狀態</legend>
+      <div class="form-row">
+        <div class="btn-group btn-group-toggle">
+          <label for="isHide" class="btn-outline-primary" ngbButtonLabel>
+            <input type="checkbox" id="isHide" formControlName="isHide" ngbButton>隱藏
+          </label>
+
         </div>
       </div>
-    </div>
+    </fieldset>
+
+    <fieldset class="p-2">
+      <div class="form-row">
+        <div class="col-12">
+          <div class="form-group">
+            <button type="button" class="btn btn-primary mr-3" (click)="insert()" *ngIf="isNew">新增</button>
+            <button type="button" class="btn btn-primary mr-3" (click)="update()" *ngIf="!isNew">更新</button>
+            <button type="button" class="btn btn-danger mr-3" (click)="delete()" *ngIf="!isNew">刪除</button>
+          </div>
+        </div>
+      </div>
+    </fieldset>
   </div>
 </form>
 

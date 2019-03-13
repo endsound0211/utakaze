@@ -69,7 +69,9 @@ export class IndexComponent implements OnInit, OnDestroy {
       const player = this.players.find(p => p.id === character.belongUserId);
       if (player) {
         player.characters.push(character);
-        this.selectedCharacter$.next(character);
+        if (character.belongUserId === this.jwtPayloadService.user.id){
+          this.selectedCharacter$.next(character);
+        }
         this.globalAlertService.alertMessage({type: 'info', message: `${player.name}新建角色:${character.data.name}`});
       }
     });

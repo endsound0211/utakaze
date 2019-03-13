@@ -146,6 +146,26 @@
       </div>
     </fieldset>
 
+    <fieldset class="border p-2" formArrayName="relation">
+      <legend class="w-auto">友情</legend>
+      <div class="form-row">
+        <div class="form-group col-2">
+          <button type="button" class="btn btn-outline-primary" (click)="addRelation()">新增友情</button>
+        </div>
+      </div>
+      <div class="form-row" *ngFor="let control of relation.controls; let i = index" [formGroupName]="i">
+        <div class="col-4 form-group">
+          <input type="text" class="form-control" formControlName="name" placeholder="對象">
+        </div>
+        <div class="col-4 form-group">
+          <input type="number" class="form-control" formControlName="maxValue" placeholder="最大值">
+        </div>
+        <div class="col-4 form-group">
+          <input type="text" class="form-control" formControlName="currentValue" placeholder="目前值">
+        </div>
+      </div>
+    </fieldset>
+
     <fieldset class="border p-2">
       <legend class="w-auto">角色資料</legend>
       <div class="form-row">

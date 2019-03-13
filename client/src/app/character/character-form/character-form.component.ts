@@ -60,6 +60,8 @@ export class CharacterFormComponent implements OnInit, OnChanges {
         convince: [null],
         pray: [null],
         skills: this.fb.array([]),
+        // relation
+        relation: this.fb.array([]),
 
         // character info
         sex: [null],
@@ -96,9 +98,11 @@ export class CharacterFormComponent implements OnInit, OnChanges {
       const character = changes.character.currentValue;
       this.formGroup.reset(this.defaultCharacter);
       this.clearSkills();
+      this.clearRelation();
 
-      if (character.data && character.data.skills) {
-        character.data.skills.forEach(skill => this.addSkill());
+      if (character.data) {
+        if (character.data.skills) {character.data.skills.forEach(skill => this.addSkill()); }
+        if (character.data.relation) {character.data.relation.forEach(r => this.addRelation()); }
       }
       this.formGroup.patchValue(character);
     }
@@ -117,14 +121,36 @@ export class CharacterFormComponent implements OnInit, OnChanges {
     }));
   }
 
+  removeSkill(index: number) {
+    this.skills.removeAt(index);
+  }
+
   clearSkills() {
     while (this.skills.length !== 0 ) {
       this.removeSkill(0);
     }
   }
 
-  removeSkill(index: number) {
-    this.skills.removeAt(index);
+  get relation(): FormArray {
+    return this.formGroup.get('data.relation') as FormArray;
+  }
+
+  addRelation() {
+    this.relation.push(this.fb.group({
+      name: [null],
+      maxValue: [null],
+      currentValue: [null]
+    }));
+  }
+
+  removeRelation(index: number) {
+    this.relation.removeAt(index);
+  }
+
+  clearRelation() {
+    while (this.relation.length !== 0) {
+      this.removeRelation(0);
+    }
   }
 
   insert() {

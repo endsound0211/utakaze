@@ -287,15 +287,17 @@
     <fieldset class="border p-2" *ngIf="isNew || isOwner || !isInfoHide">
       <legend class="w-auto">狀態</legend>
       <div class="form-row">
-        <div class="btn-group btn-group-toggle col-2">
-          <label for="isHide" class="btn-outline-primary" ngbButtonLabel>
-            <input type="checkbox" id="isHide" formControlName="isHide" ngbButton>隱藏角色
-          </label>
+        <div class="col-2">
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="isHide" formControlName="isHide">
+            <label class="custom-control-label" for="isHide">隱藏角色</label>
+          </div>
         </div>
-        <div class="btn-group btn-group-toggle col-2">
-          <label for="isInfoHide" class="btn-outline-primary" ngbButtonLabel>
-            <input type="checkbox" id="isInfoHide" formControlName="isInfoHide" ngbButton>隱藏資訊
-          </label>
+        <div class="col-2">
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="isInfoHide" formControlName="isInfoHide">
+            <label class="custom-control-label" for="isInfoHide">隱藏角色</label>
+          </div>
         </div>
       </div>
     </fieldset>
@@ -314,4 +316,3 @@
     </fieldset>
   </div>
 </form>
-

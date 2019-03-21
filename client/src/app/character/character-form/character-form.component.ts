@@ -210,18 +210,11 @@ export class CharacterFormComponent implements OnInit, OnChanges {
     this.onDelete.emit(this.formGroup.value);
   }
 
-  export() {
-    const data = this.formGroup.value.data;
-    const dataJson = JSON.stringify(data);
-    const filename = data.name ? `${data.name}.json` : 'Unknown.json';
-
-    const element = document.createElement('a');
-    element.setAttribute('href', `data: text/json;charset=UTF-8,${encodeURIComponent(dataJson)}`);
-    element.setAttribute('download', filename);
-    element.style.display = 'none';
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
+  copy() {
+    this.character = this.formGroup.value;
+    this.character.belongUserId = null;
+    this.character.id = null;
+    this.onInsert.emit(this.character);
   }
 
   get isNew(): boolean {

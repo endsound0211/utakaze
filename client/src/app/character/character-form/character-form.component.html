@@ -4,7 +4,7 @@
       <div class="col-12">
         <div class="form-group">
           <button type="button" class="btn btn-primary mr-3 float-right" (click)="insert()" *ngIf="isNew">新增</button>
-          <button type="button" class="btn btn-info mr-3 float-right" (click)="export()" *ngIf="!isNew && isOwner">匯出</button>
+          <button type="button" class="btn btn-info mr-3 float-right" (click)="copy()" *ngIf="!isNew && isOwner">複製</button>
           <button type="button" class="btn btn-primary mr-3 float-right" (click)="update()" *ngIf="!isNew">更新</button>
           <button type="button" class="btn btn-danger mr-3 float-right" (click)="delete()" *ngIf="!isNew && isOwner">刪除</button>
         </div>
@@ -305,7 +305,7 @@
         <div class="col-12">
           <div class="form-group">
             <button type="button" class="btn btn-primary mr-3 float-right" (click)="insert()" *ngIf="isNew">新增</button>
-            <button type="button" class="btn btn-info mr-3 float-right" (click)="export()" *ngIf="!isNew && isOwner">匯出</button>
+            <button type="button" class="btn btn-info mr-3 float-right" (click)="copy()" *ngIf="!isNew && isOwner">複製</button>
             <button type="button" class="btn btn-primary mr-3 float-right" (click)="update()" *ngIf="!isNew">更新</button>
             <button type="button" class="btn btn-danger mr-3 float-right" (click)="delete()" *ngIf="!isNew && isOwner">刪除</button>
           </div>

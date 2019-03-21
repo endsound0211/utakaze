@@ -1,4 +1,16 @@
 <form role="form" [formGroup]="formGroup">
+  <fieldset class="p-2">
+    <div class="form-row">
+      <div class="col-12">
+        <div class="form-group">
+          <button type="button" class="btn btn-primary mr-3 float-right" (click)="insert()" *ngIf="isNew">新增</button>
+          <button type="button" class="btn btn-info mr-3 float-right" (click)="export()" *ngIf="!isNew && isOwner">匯出</button>
+          <button type="button" class="btn btn-primary mr-3 float-right" (click)="update()" *ngIf="!isNew">更新</button>
+          <button type="button" class="btn btn-danger mr-3 float-right" (click)="delete()" *ngIf="!isNew && isOwner">刪除</button>
+        </div>
+      </div>
+    </div>
+  </fieldset>
   <div formGroupName="data">
     <fieldset class="border p-2">
       <legend class="w-auto">基本資料</legend>
@@ -292,9 +304,10 @@
       <div class="form-row">
         <div class="col-12">
           <div class="form-group">
-            <button type="button" class="btn btn-primary mr-3" (click)="insert()" *ngIf="isNew">新增</button>
-            <button type="button" class="btn btn-primary mr-3" (click)="update()" *ngIf="!isNew">更新</button>
-            <button type="button" class="btn btn-danger mr-3" (click)="delete()" *ngIf="!isNew && isOwner">刪除</button>
+            <button type="button" class="btn btn-primary mr-3 float-right" (click)="insert()" *ngIf="isNew">新增</button>
+            <button type="button" class="btn btn-info mr-3 float-right" (click)="export()" *ngIf="!isNew && isOwner">匯出</button>
+            <button type="button" class="btn btn-primary mr-3 float-right" (click)="update()" *ngIf="!isNew">更新</button>
+            <button type="button" class="btn btn-danger mr-3 float-right" (click)="delete()" *ngIf="!isNew && isOwner">刪除</button>
           </div>
         </div>
       </div>

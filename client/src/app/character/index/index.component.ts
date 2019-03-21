@@ -69,10 +69,12 @@ export class IndexComponent implements OnInit, OnDestroy {
       const player = this.players.find(p => p.id === character.belongUserId);
       if (player) {
         player.characters.push(character);
-        if (character.belongUserId === this.jwtPayloadService.user.id){
+        if (character.belongUserId === this.jwtPayloadService.user.id) {
           this.selectedCharacter$.next(character);
         }
-        this.globalAlertService.alertMessage({type: 'info', message: `${player.name}新建角色:${character.data.name}`});
+        if (character.belongUserId === this.user.id || (character.data && !character.data.isHide)) {
+          this.globalAlertService.alertMessage({type: 'info', message: `${player.name}新建角色:${character.data.name}`});
+        }
       }
     });
     this.socketService.subscribe('/backend/socket/client/utakaze/character/update', (data) => {
@@ -83,7 +85,9 @@ export class IndexComponent implements OnInit, OnDestroy {
         const oldCharacter: Character = player.characters.find(c => c.id === character.id);
         if (oldCharacter) {
           oldCharacter.data = character.data;
-          this.globalAlertService.alertMessage({type: 'info', message: `${player.name}更新角色:${character.data.name}`});
+          if (character.belongUserId === this.user.id || (character.data && !character.data.isHide)) {
+            this.globalAlertService.alertMessage({type: 'info', message: `${player.name}更新角色:${character.data.name}`});
+          }
         }
       }
     });
@@ -95,7 +99,9 @@ export class IndexComponent implements OnInit, OnDestroy {
         const oldIndex = player.characters.findIndex(c => c.id === character.id);
         if (oldIndex !== -1) {
           player.characters.splice(oldIndex, 1);
-          this.globalAlertService.alertMessage({type: 'danger', message: `${player.name}刪除角色:${character.data.name}`});
+          if (character.belongUserId === this.user.id || (character.data && !character.data.isHide)) {
+            this.globalAlertService.alertMessage({type: 'danger', message: `${player.name}刪除角色:${character.data.name}`});
+          }
         }
       }
     });
@@ -128,9 +134,5 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   trackCharacterById(index, character) {
     return character.id;
-  }
-
-  hide() {
-    // this.character = null;
   }
 }

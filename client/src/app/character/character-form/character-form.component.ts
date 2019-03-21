@@ -96,7 +96,8 @@ export class CharacterFormComponent implements OnInit, OnChanges {
         note: [null],
 
         // state
-        isHide: [false]
+        isHide: [false],
+        isInfoHide: [false]
       }),
       belongUserId: [null]
     });
@@ -217,7 +218,7 @@ export class CharacterFormComponent implements OnInit, OnChanges {
     return this.jwtPayloadService.user.id === this.character.belongUserId;
   }
 
-  get isHide(): boolean {
-    return this.character.data && this.character.data.isHide;
+  get isInfoHide(): boolean {
+    return this.character.data && this.character.data.isInfoHide;
   }
 }

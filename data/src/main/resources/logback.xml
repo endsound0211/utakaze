@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration  scan="true" scanPeriod="60 seconds" debug="false">
+    <contextName>utakaze</contextName>
+    <property name="basic.pattern" value="%d{ISO8601,GMT+8} %-5p %cn %t %logger.%M\\(%F:%L\\) %m%n"/>
+
+    <appender name="console-system" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${basic.pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <root level="DEBUG">
+        <appender-ref ref="console-system"/>
+    </root>
+</configuration>

@@ -29,3 +29,10 @@ dependencies {
 
     implementation project(':security')
 }
+
+jar.enabled = true
+bootJar.enabled = false
+
+tasks.withType(JavaCompile){
+    options.encoding = "UTF-8"
+}

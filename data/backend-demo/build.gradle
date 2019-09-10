@@ -29,3 +29,10 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
 }
+
+jar.enabled = true
+bootJar.enabled = false
+
+tasks.withType(JavaCompile){
+    options.encoding = "UTF-8"
+}

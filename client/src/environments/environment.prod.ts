@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiHost: 'http://localhost:8080'
+  apiHost: 'http://utakaze.ddns.net/data'
 };
